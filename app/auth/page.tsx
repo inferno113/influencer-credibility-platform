@@ -11,20 +11,40 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import type { UserRole } from "@/lib/types"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle2, Users, TrendingUp, Shield, Sparkles } from "lucide-react"
+import { CheckCircle2, TrendingUp, Shield, Sparkles, Key, ChevronDown } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+// Demo credentials for each role (excluding public - they don't need to sign in)
+type SignInRole = Exclude<UserRole, "public">
+const demoCredentials: Record<SignInRole, { email: string; password: string }> = {
+  brand: { email: "demo@brand.com", password: "demo123" },
+  influencer: { email: "demo@creator.com", password: "demo123" },
+  admin: { email: "demo@admin.com", password: "demo123" },
+}
+
+const roleLabels: Record<SignInRole, string> = {
+  brand: "Brand",
+  influencer: "Creator",
+  admin: "Admin",
+}
 
 export default function AuthPage() {
   const router = useRouter()
   const { login } = useAuth()
 
-  const [step, setStep] = useState<"role-select" | "login">("role-select")
-  const [selectedRole, setSelectedRole] = useState<UserRole | null>(null)
+  const [selectedRole, setSelectedRole] = useState<SignInRole>("brand")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const roles: Array<{
-    value: UserRole
+    value: SignInRole
     label: string
     description: string
     features: string[]
@@ -33,59 +53,53 @@ export default function AuthPage() {
     bgGradient: string
   }> = [
     {
-      value: "public",
-      label: "Public User",
-      description: "Browse verified creators",
-      features: ["View all profiles", "Filter by category", "See credibility scores", "Read reviews"],
-      icon: <Users className="w-8 h-8" />,
-      color: "text-blue-500",
-      bgGradient: "from-blue-500/20 to-blue-600/20",
-    },
-    {
       value: "brand",
       label: "Brand Account",
-      description: "Find perfect creators",
-      features: ["Advanced filtering", "Compare 3 creators", "Direct messaging", "Export insights"],
-      icon: <TrendingUp className="w-8 h-8" />,
+      description: "Find perfect creators for your campaigns",
+      features: ["Advanced filtering", "Compare creators", "Direct messaging", "Export insights"],
+      icon: <TrendingUp className="w-6 h-6" />,
       color: "text-purple-500",
       bgGradient: "from-purple-500/20 to-pink-500/20",
     },
     {
       value: "influencer",
       label: "Creator Account",
-      description: "Showcase your profile",
-      features: ["Manage your presence", "View analytics", "Get brand offers", "Track rating"],
-      icon: <Sparkles className="w-8 h-8" />,
+      description: "Showcase your profile to brands",
+      features: ["Manage presence", "View analytics", "Get offers", "Track rating"],
+      icon: <Sparkles className="w-6 h-6" />,
       color: "text-orange-500",
       bgGradient: "from-orange-500/20 to-red-500/20",
     },
     {
       value: "admin",
       label: "Platform Admin",
-      description: "Manage the platform",
-      features: ["User management", "Rating control", "Analytics", "Moderation tools"],
-      icon: <Shield className="w-8 h-8" />,
+      description: "Manage the entire platform",
+      features: ["User management", "Rating control", "Analytics", "Moderation"],
+      icon: <Shield className="w-6 h-6" />,
       color: "text-emerald-500",
       bgGradient: "from-emerald-500/20 to-teal-500/20",
     },
   ]
 
-  const handleRoleSelect = (role: UserRole) => {
-    setSelectedRole(role)
-    setStep("login")
-  }
-
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!selectedRole || !email) return
+    if (!selectedRole || !email || !password) return
 
     setLoading(true)
+    setError(null)
 
     setTimeout(() => {
+      // Validate credentials
+      const validCreds = demoCredentials[selectedRole]
+      if (email !== validCreds.email || password !== validCreds.password) {
+        setError("Invalid email or password. Please use the demo credentials shown below.")
+        setLoading(false)
+        return
+      }
+
       login(email, password, selectedRole)
 
-      const redirectMap: Record<UserRole, string> = {
-        public: "/explore",
+      const redirectMap: Record<SignInRole, string> = {
         brand: "/dashboard/brand",
         influencer: "/dashboard/influencer",
         admin: "/admin",
@@ -111,161 +125,197 @@ export default function AuthPage() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-5xl">
-          {/* Role Selection Step */}
-          {step === "role-select" && (
-            <div className="space-y-8">
-              <div className="text-center space-y-3">
-                <h1 className="text-5xl font-bold text-balance bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  Welcome Back
-                </h1>
-                <p className="text-lg text-muted-foreground">Select your account type to continue</p>
-              </div>
+      <div className="flex-1 flex items-center justify-center px-4 py-8">
+        <div className="w-full max-w-4xl space-y-8">
+          {/* Header */}
+          <div className="text-center space-y-3">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Sign In
+            </h1>
+            <p className="text-lg text-muted-foreground">Access your dashboard</p>
+          </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {roles.map((role) => (
-                  <button key={role.value} onClick={() => handleRoleSelect(role.value)} className="text-left">
-                    <Card
-                      className={`h-full border-2 transition-all duration-300 cursor-pointer group bg-gradient-to-br ${role.bgGradient} hover:shadow-2xl hover:shadow-primary/25 hover:border-primary/50 ${
-                        selectedRole === role.value ? "border-primary shadow-xl" : "border-border/50"
-                      }`}
-                    >
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start justify-between mb-4">
-                          <div
-                            className={`p-3 rounded-xl bg-white/10 backdrop-blur group-hover:scale-110 transition-transform`}
-                          >
-                            <div className={role.color}>{role.icon}</div>
+          {/* Sign In Form */}
+          <Card className="max-w-md mx-auto border-border/50 bg-gradient-to-br from-card to-card/50">
+            <CardHeader>
+              <CardTitle className="text-xl">Welcome Back</CardTitle>
+              <CardDescription>Select your account type and enter credentials</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleLogin} className="space-y-5">
+                {/* Role Dropdown */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Account Type</label>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between bg-muted/50 border-border/50 hover:bg-muted"
+                      >
+                        <span className="flex items-center gap-2">
+                          {roles.find(r => r.value === selectedRole)?.icon}
+                          {roleLabels[selectedRole]}
+                        </span>
+                        <ChevronDown className="w-4 h-4 opacity-50" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-full min-w-[200px]">
+                      {roles.map((role) => (
+                        <DropdownMenuItem
+                          key={role.value}
+                          onClick={() => {
+                            setSelectedRole(role.value)
+                            setEmail("")
+                            setPassword("")
+                            setError(null)
+                          }}
+                          className="cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={role.color}>{role.icon}</span>
+                            {role.label}
                           </div>
-                          {selectedRole === role.value && (
-                            <Badge className="bg-primary text-white border-0 animate-pulse">
-                              <CheckCircle2 className="w-4 h-4 mr-1" />
-                              Selected
-                            </Badge>
-                          )}
-                        </div>
-                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                          {role.label}
-                        </CardTitle>
-                        <CardDescription className="text-sm">{role.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-3">
-                          {role.features.map((feature) => (
-                            <li
-                              key={feature}
-                              className="flex items-center gap-3 text-sm text-muted-foreground group-hover:text-foreground transition-colors"
-                            >
-                              <div className="w-4 h-4 rounded-full bg-primary/30 flex items-center justify-center flex-shrink-0">
-                                <CheckCircle2 className="w-3 h-3 text-primary" />
-                              </div>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </button>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+
+                {/* Email */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Email Address</label>
+                  <Input
+                    type="email"
+                    placeholder={demoCredentials[selectedRole].email}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="bg-muted/50 border-border/50 focus:border-primary/50"
+                  />
+                </div>
+
+                {/* Password */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Password</label>
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="bg-muted/50 border-border/50 focus:border-primary/50"
+                  />
+                </div>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3 text-sm text-destructive">
+                    {error}
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                  disabled={!email || !password || loading}
+                >
+                  {loading ? "Signing in..." : "Sign In"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Demo Credentials */}
+          <Card className="max-w-md mx-auto border-primary/30 bg-gradient-to-r from-primary/10 to-secondary/10">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Key className="w-4 h-4 text-primary" />
+                <p className="font-medium text-foreground">Demo Credentials</p>
+              </div>
+              <div className="space-y-3">
+                {(Object.entries(demoCredentials) as [SignInRole, { email: string; password: string }][]).map(([role, creds]) => (
+                  <div 
+                    key={role} 
+                    className={`p-3 rounded-lg border transition-all cursor-pointer hover:border-primary/50 ${
+                      selectedRole === role 
+                        ? "bg-primary/10 border-primary/50" 
+                        : "bg-background/50 border-border/50"
+                    }`}
+                    onClick={() => {
+                      setSelectedRole(role)
+                      setEmail(creds.email)
+                      setPassword(creds.password)
+                      setError(null)
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-sm text-foreground">{roleLabels[role]}</p>
+                        <p className="text-xs text-muted-foreground">{creds.email}</p>
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {creds.password}
+                      </Badge>
+                    </div>
+                  </div>
                 ))}
               </div>
+              <p className="text-xs text-muted-foreground mt-3 text-center">
+                Click on a credential to auto-fill the form
+              </p>
+            </CardContent>
+          </Card>
 
-              {/* Info Banner */}
-              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 to-secondary/10">
-                <CardContent className="pt-6">
-                  <p className="text-sm text-muted-foreground">
-                    New to Creator Intelligence? Enter any email to create your account instantly. No credit card
-                    required.
-                  </p>
-                </CardContent>
-              </Card>
+          {/* Role Cards */}
+          <div className="pt-4">
+            <p className="text-center text-sm text-muted-foreground mb-6">Choose the right account for you</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {roles.map((role) => (
+                <Card
+                  key={role.value}
+                  className={`border transition-all cursor-pointer hover:shadow-lg hover:border-primary/50 bg-gradient-to-br ${role.bgGradient} ${
+                    selectedRole === role.value ? "border-primary ring-2 ring-primary/20" : "border-border/50"
+                  }`}
+                  onClick={() => {
+                    setSelectedRole(role.value)
+                    setEmail(demoCredentials[role.value].email)
+                    setPassword(demoCredentials[role.value].password)
+                    setError(null)
+                  }}
+                >
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className={`p-2 rounded-lg bg-white/10 ${role.color}`}>
+                        {role.icon}
+                      </div>
+                      {selectedRole === role.value && (
+                        <Badge className="bg-primary text-white border-0 text-xs">
+                          Selected
+                        </Badge>
+                      )}
+                    </div>
+                    <CardTitle className="text-lg">{role.label}</CardTitle>
+                    <CardDescription className="text-xs">{role.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <ul className="space-y-1.5">
+                      {role.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="flex items-center gap-2 text-xs text-muted-foreground"
+                        >
+                          <CheckCircle2 className="w-3 h-3 text-primary flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          )}
-
-          {/* Login Step */}
-          {step === "login" && selectedRole && (
-            <div className="space-y-8 max-w-md mx-auto">
-              <button
-                onClick={() => setStep("role-select")}
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to role selection
-              </button>
-
-              <Card className="border-border/50 bg-gradient-to-br from-card to-card/50">
-                <CardHeader>
-                  <CardTitle className="text-2xl">
-                    Continue as{" "}
-                    <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                      {roles.find((r) => r.value === selectedRole)?.label}
-                    </span>
-                  </CardTitle>
-                  <CardDescription>Enter your email to get started</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleLogin} className="space-y-5">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">Email Address</label>
-                      <Input
-                        type="email"
-                        placeholder="you@company.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="bg-muted/50 border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">Password</label>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="bg-muted/50 border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-
-                    <div className="bg-secondary/20 border border-secondary/30 rounded-lg p-4 text-sm text-muted-foreground">
-                      <p className="font-medium text-foreground mb-1">Demo Access:</p>
-                      <p>Use any email and password to explore the platform.</p>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90"
-                      disabled={!email || loading}
-                    >
-                      {loading ? "Signing in..." : "Continue"}
-                    </Button>
-
-                    <p className="text-center text-xs text-muted-foreground">
-                      By continuing, you agree to our Terms of Service and Privacy Policy
-                    </p>
-                  </form>
-                </CardContent>
-              </Card>
-
-              {/* Pricing CTA */}
-              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 to-secondary/10">
-                <CardContent className="pt-6 space-y-3">
-                  <p className="font-medium text-sm">Ready to upgrade?</p>
-                  <Link href={selectedRole === "brand" ? "/pricing" : "/pricing/creators"}>
-                    <Button
-                      variant="outline"
-                      className="w-full gap-2 border-primary/50 hover:border-primary bg-transparent hover:bg-primary/5"
-                      onClick={() => {}}
-                    >
-                      View Premium Plans
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,12 +1,26 @@
+"use client"
+
+import { useAuth } from "@/components/auth-provider"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Check } from "lucide-react"
+import { Check, Shield } from "lucide-react"
 import Link from "next/link"
 
 export default function PricingPage() {
+  const { user } = useAuth()
+  const router = useRouter()
+
+  // Redirect creators to their own pricing page
+  useEffect(() => {
+    if (user?.role === "influencer") {
+      router.push("/pricing/creators")
+    }
+  }, [user, router])
   const brandPlans = [
     {
       name: "Free",
@@ -105,28 +119,25 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Header */}
           <div className="text-center mb-16 space-y-4">
+            <Badge className="bg-purple-500/10 text-purple-500 border-purple-500/20">
+              <Shield className="w-3 h-3 mr-1" /> For Brands
+            </Badge>
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Simple, Transparent Pricing
+              Brand Pricing Plans
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Choose the perfect plan for brands or creators. Unlock premium features and grow faster.
+              Find and connect with the perfect creators for your campaigns.
             </p>
           </div>
 
-          {/* Toggle between Brand and Creator */}
-          <div className="flex justify-center mb-16">
-            <div className="inline-flex rounded-lg border border-border p-1 bg-card">
-              <button className="px-6 py-2 rounded-md bg-gradient-to-r from-primary to-secondary text-white font-medium">
-                For Brands
-              </button>
-              <Link
-                href="/pricing/creators"
-                className="px-6 py-2 rounded-md text-muted-foreground hover:text-foreground transition-colors"
-              >
-                For Creators
-              </Link>
+          {/* Brand Plans Grid - No toggle for logged in users */}
+          {!user && (
+            <div className="flex justify-center mb-8">
+              <p className="text-sm text-muted-foreground">
+                Looking for creator plans? <Link href="/pricing/creators" className="text-primary hover:underline">Click here</Link>
+              </p>
             </div>
-          </div>
+          )}
 
           {/* Brand Plans Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
