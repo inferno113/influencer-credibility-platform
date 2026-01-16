@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Creator Intelligence Platform | Influencer Credibility & Discovery",
+  title: "ELEVATE | Creator Credibility & Brand Discovery Platform",
   description:
     "Professional credibility ratings, trust intelligence, and discovery platform for influencers and brands. Institutional-grade influencer analysis.",
   generator: "v0.app",

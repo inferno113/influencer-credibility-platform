@@ -27,7 +27,7 @@ export function Navbar() {
   const getLinks = () => {
     const publicLinks = [
       { href: "/", label: "Home" },
-      { href: "/explore", label: "Explore" },
+      { href: "/about", label: "About" },
     ]
 
     if (!user) {
@@ -67,9 +67,9 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">CI</span>
+              <span className="text-primary-foreground font-bold text-sm">E</span>
             </div>
-            <span className="font-semibold text-foreground hidden sm:inline">Creator Intelligence</span>
+            <span className="font-semibold text-foreground hidden sm:inline">ELEVATE</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-6">

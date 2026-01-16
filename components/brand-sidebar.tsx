@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, Search, Heart, Settings, LogOut, Crown, Sparkles } from "lucide-react"
+import { LayoutDashboard, Search, Heart, Settings, LogOut, Crown, Sparkles, PartyPopper, Megaphone } from "lucide-react"
 
 export function BrandSidebar() {
   const pathname = usePathname()
@@ -13,6 +13,8 @@ export function BrandSidebar() {
   const links = [
     { href: "/dashboard/brand", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/brand/explore", label: "Explore", icon: Search },
+    { href: "/dashboard/brand/opportunities", label: "Opportunities", icon: PartyPopper },
+    { href: "/dashboard/brand/promote", label: "Promote", icon: Megaphone },
     { href: "/dashboard/brand/saved", label: "Saved", icon: Heart },
     { href: "/dashboard/brand/settings", label: "Settings", icon: Settings },
   ]
@@ -22,9 +24,9 @@ export function BrandSidebar() {
       <div className="p-6 border-b border-border">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">CI</span>
+            <span className="text-primary-foreground font-bold text-sm">E</span>
           </div>
-          <span className="font-semibold text-foreground">Creator Intel</span>
+          <span className="font-semibold text-foreground">ELEVATE</span>
         </Link>
       </div>
 

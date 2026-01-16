@@ -3,15 +3,16 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, Users, Sliders, BarChart3, Settings, LogOut, ShieldAlert } from "lucide-react"
+import { LayoutDashboard, Users, Star, BarChart3, Settings, LogOut, ShieldAlert, FileCheck, Award } from "lucide-react"
 
 export function AdminSidebar() {
   const pathname = usePathname()
 
   const links = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/influencers", label: "Manage Influencers", icon: Users },
-    { href: "/admin/rating-system", label: "Rating System", icon: Sliders },
+    { href: "/admin/applications", label: "Applications", icon: FileCheck },
+    { href: "/admin/approved", label: "Approved Creators", icon: Users },
+    { href: "/admin/assign-rating", label: "Assign Ratings", icon: Star },
     { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
     { href: "/admin/moderation", label: "Moderation", icon: ShieldAlert },
     { href: "/admin/settings", label: "Settings", icon: Settings },

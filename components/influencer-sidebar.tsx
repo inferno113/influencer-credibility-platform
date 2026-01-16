@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, User, Users, BarChart3, Settings, LogOut, Crown, Sparkles } from "lucide-react"
+import { LayoutDashboard, User, Users, BarChart3, Settings, LogOut, Crown, Sparkles, Briefcase } from "lucide-react"
 
 export function InfluencerSidebar() {
   const pathname = usePathname()
@@ -13,6 +13,8 @@ export function InfluencerSidebar() {
   const links = [
     { href: "/dashboard/influencer", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/influencer/profile", label: "My Profile", icon: User },
+    { href: "/dashboard/influencer/opportunities", label: "Opportunities", icon: Briefcase },
+    { href: "/dashboard/influencer/promote", label: "Promote", icon: Sparkles },
     { href: "/dashboard/influencer/collaborate", label: "Collaborate", icon: Users },
     { href: "/dashboard/influencer/insights", label: "Insights", icon: BarChart3 },
     { href: "/dashboard/influencer/settings", label: "Settings", icon: Settings },
@@ -23,9 +25,9 @@ export function InfluencerSidebar() {
       <div className="p-6 border-b border-border">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">CI</span>
+            <span className="text-primary-foreground font-bold text-sm">E</span>
           </div>
-          <span className="font-semibold text-foreground">Creator Intel</span>
+          <span className="font-semibold text-foreground">ELEVATE</span>
         </Link>
       </div>
 
