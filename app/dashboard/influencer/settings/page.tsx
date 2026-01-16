@@ -1,20 +1,12 @@
 "use client"
 
-import { InfluencerSidebar } from "@/components/influencer-sidebar"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export default function SettingsPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <div className="flex flex-1">
-        <InfluencerSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-4xl mx-auto">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2">Settings</h1>
               <p className="text-muted-foreground">Manage your account preferences</p>
@@ -79,8 +71,6 @@ export default function SettingsPage() {
               </div>
             </Card>
           </div>
-        </main>
-      </div>
     </div>
   )
 }

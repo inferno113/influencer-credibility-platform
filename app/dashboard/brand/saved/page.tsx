@@ -1,7 +1,5 @@
 "use client"
 
-import { BrandSidebar } from "@/components/brand-sidebar"
-import { Navbar } from "@/components/navbar"
 import { InfluencerCard } from "@/components/influencer-card"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -12,14 +10,8 @@ export default function SavedPage() {
   const savedInfluencers = mockInfluencers
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <div className="flex flex-1">
-        <BrandSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2">Saved Creators</h1>
               <p className="text-muted-foreground">Your curated list of creators for partnerships</p>
@@ -38,8 +30,6 @@ export default function SavedPage() {
               </div>
             )}
           </div>
-        </main>
-      </div>
     </div>
   )
 }

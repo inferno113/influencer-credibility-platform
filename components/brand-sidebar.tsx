@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, Search, Heart, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, Search, Heart, Settings, LogOut, Crown, Sparkles } from "lucide-react"
 
 export function BrandSidebar() {
   const pathname = usePathname()
@@ -42,6 +42,22 @@ export function BrandSidebar() {
           )
         })}
       </nav>
+
+      {/* Upgrade Plan Section */}
+      <div className="px-4 py-4 border-t border-border">
+        <Link href="/pricing">
+          <div className="p-4 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 transition-colors cursor-pointer">
+            <div className="flex items-center gap-2 mb-2">
+              <Crown className="w-4 h-4 text-primary" />
+              <span className="font-semibold text-sm">Upgrade Plan</span>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">Unlock advanced filters & direct creator messaging</p>
+            <Button size="sm" className="w-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+              <Sparkles className="w-3 h-3" /> View Plans
+            </Button>
+          </div>
+        </Link>
+      </div>
 
       <div className="p-4 border-t border-border">
         <Button

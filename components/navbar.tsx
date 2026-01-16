@@ -23,24 +23,35 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Build links based on user role
+  // When logged in, remove Explore - they access it through their dashboard
   const getLinks = () => {
-    const baseLinks = [
+    const publicLinks = [
       { href: "/", label: "Home" },
       { href: "/explore", label: "Explore" },
     ]
 
     if (!user) {
-      return baseLinks
+      return publicLinks
     }
 
+    // Logged-in users only see Home and their Dashboard
     const roleLinks: Record<string, Array<{ href: string; label: string }>> = {
-      brand: [...baseLinks, { href: "/dashboard/brand", label: "Dashboard" }],
-      influencer: [...baseLinks, { href: "/dashboard/influencer", label: "Dashboard" }],
-      admin: [...baseLinks, { href: "/admin", label: "Admin" }],
-      public: baseLinks,
+      brand: [
+        { href: "/", label: "Home" },
+        { href: "/dashboard/brand", label: "Dashboard" },
+      ],
+      influencer: [
+        { href: "/", label: "Home" },
+        { href: "/dashboard/influencer", label: "Dashboard" },
+      ],
+      admin: [
+        { href: "/", label: "Home" },
+        { href: "/admin", label: "Admin" },
+      ],
+      public: publicLinks,
     }
 
-    return roleLinks[user.role] || baseLinks
+    return roleLinks[user.role] || publicLinks
   }
 
   const links = getLinks()

@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { AdminSidebar } from "@/components/admin-sidebar"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -24,14 +22,8 @@ export default function ManageInfluencersPage() {
   const selectedInfluencer = influencers.find((i) => i.id === selectedId)
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <div className="flex flex-1">
-        <AdminSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2">Manage Influencers</h1>
               <p className="text-muted-foreground">Approve, reject, and manage influencer profiles</p>
@@ -155,8 +147,6 @@ export default function ManageInfluencersPage() {
               </div>
             </div>
           </div>
-        </main>
-      </div>
     </div>
   )
 }

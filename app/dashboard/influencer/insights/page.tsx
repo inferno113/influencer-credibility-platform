@@ -1,7 +1,5 @@
 "use client"
 
-import { InfluencerSidebar } from "@/components/influencer-sidebar"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { mockInfluencers } from "@/lib/mock-data"
@@ -43,14 +41,8 @@ export default function InsightsPage() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <div className="flex flex-1">
-        <InfluencerSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-4xl font-bold mb-2">Insights & Analytics</h1>
@@ -137,7 +129,7 @@ export default function InsightsPage() {
                         <p
                           className={`text-lg font-semibold ${item.current >= item.benchmark ? "text-green-600" : "text-amber-600"}`}
                         >
-                          {Math.abs((item.current - item.benchmark).toFixed(1))}
+                          {Math.abs(item.current - item.benchmark).toFixed(1)}
                         </p>
                       </div>
                     </div>
@@ -146,8 +138,6 @@ export default function InsightsPage() {
                 ))}
               </div>
             </Card>
-          </div>
-        </main>
       </div>
     </div>
   )

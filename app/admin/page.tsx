@@ -1,7 +1,5 @@
 "use client"
 
-import { AdminSidebar } from "@/components/admin-sidebar"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { mockInfluencers } from "@/lib/mock-data"
@@ -40,14 +38,8 @@ export default function AdminDashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <div className="flex flex-1">
-        <AdminSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
             {/* Welcome */}
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
@@ -187,8 +179,6 @@ export default function AdminDashboardPage() {
               </div>
             </Card>
           </div>
-        </main>
-      </div>
     </div>
   )
 }

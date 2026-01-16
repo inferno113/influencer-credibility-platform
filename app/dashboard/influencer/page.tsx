@@ -1,6 +1,5 @@
 "use client"
 
-import { InfluencerSidebar } from "@/components/influencer-sidebar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -22,12 +21,8 @@ export default function InfluencerDashboardPage() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <div className="flex flex-1">
-        <InfluencerSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 {currentInfluencer.name}
@@ -151,8 +146,6 @@ export default function InfluencerDashboardPage() {
               </div>
             </div>
           </div>
-        </main>
-      </div>
     </div>
   )
 }

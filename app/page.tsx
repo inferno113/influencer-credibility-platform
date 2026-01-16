@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Zap, Users, TrendingUp, Shield, Sparkles } from "lucide-react"
+import { ArrowRight, CheckCircle2, Zap, Users, TrendingUp, Shield, Sparkles, Star, BarChart3, Eye, Target, Award, Globe } from "lucide-react"
 import { Card } from "@/components/ui/card"
 
 export default function HomePage() {
@@ -22,21 +22,22 @@ export default function HomePage() {
                     <Sparkles className="w-4 h-4" />
                     Credibility Intelligence Platform
                   </Badge>
-                  <h1 className="text-6xl font-bold text-balance bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
+                  <h1 className="text-5xl lg:text-6xl font-bold text-balance bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
                     The IMDb for Influencers
                   </h1>
                 </div>
 
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                  Institutional-grade credibility ratings for creators. Brands discover verified talent. Creators
-                  showcase authentic influence. All powered by transparent, data-driven intelligence.
+                  The first transparent credibility rating system for content creators. 
+                  We analyze authenticity, engagement quality, and growth patterns to help 
+                  brands find genuine influencers and help creators showcase their true value.
                 </p>
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Link href="/explore">
                     <Button
                       size="lg"
-                      className="gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white"
+                      className="gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white w-full sm:w-auto"
                     >
                       Explore Creators <ArrowRight className="w-4 h-4" />
                     </Button>
@@ -45,26 +46,72 @@ export default function HomePage() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="gap-2 border-primary/30 hover:border-primary bg-transparent"
+                      className="gap-2 border-primary/30 hover:border-primary bg-transparent w-full sm:w-auto"
                     >
-                      Get Started
+                      Sign In / Register
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </div>
+
+                {/* Quick Stats */}
+                <div className="flex gap-8 pt-4">
+                  <div>
+                    <p className="text-3xl font-bold text-primary">10K+</p>
+                    <p className="text-sm text-muted-foreground">Rated Creators</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-secondary">500+</p>
+                    <p className="text-sm text-muted-foreground">Brands Trust Us</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-accent">95%</p>
+                    <p className="text-sm text-muted-foreground">Accuracy Rate</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Hero Visual */}
+              {/* Hero Visual - Rating Preview Card */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl blur-3xl" />
-                <div className="relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-primary/20 p-8 h-96 flex items-center justify-center">
-                  <div className="space-y-4 w-full">
-                    <div className="h-3 bg-primary/30 rounded-full w-3/4" />
-                    <div className="h-3 bg-secondary/30 rounded-full w-full" />
-                    <div className="h-3 bg-accent/30 rounded-full w-5/6" />
-                    <div className="pt-4 space-y-3">
-                      <div className="h-2 bg-primary/20 rounded-full" />
-                      <div className="h-2 bg-primary/20 rounded-full w-4/5" />
+                <div className="relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-primary/20 p-8">
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl font-bold">
+                        92
+                      </div>
+                      <div>
+                        <p className="font-semibold text-lg">Sample Creator</p>
+                        <p className="text-sm text-muted-foreground">Lifestyle • 500K followers</p>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Authenticity</span>
+                        <span className="font-medium">94%</span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500 rounded-full" style={{width: "94%"}} />
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Engagement Quality</span>
+                        <span className="font-medium">89%</span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 rounded-full" style={{width: "89%"}} />
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Growth Stability</span>
+                        <span className="font-medium">91%</span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="h-full bg-purple-500 rounded-full" style={{width: "91%"}} />
+                      </div>
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      <Badge variant="secondary" className="text-xs">✓ Verified</Badge>
+                      <Badge variant="secondary" className="text-xs">Consistent Poster</Badge>
+                      <Badge variant="secondary" className="text-xs">High Engagement</Badge>
                     </div>
                   </div>
                 </div>
@@ -73,121 +120,114 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works */}
+        {/* What is Creator Intelligence */}
         <section className="border-b border-border/50 bg-background py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-4 mb-16">
-              <h2 className="text-4xl font-bold">How It Works</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Three simple steps to credibility intelligence
+              <Badge className="bg-primary/10 text-primary border-primary/20">What We Do</Badge>
+              <h2 className="text-4xl font-bold">Transparent Influencer Credibility Ratings</h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Just like IMDb rates movies and Glassdoor rates companies, we provide transparent, 
+                data-driven credibility scores for content creators. Our algorithm analyzes multiple 
+                factors to give you the complete picture of any influencer's authenticity.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  number: "1",
-                  title: "Credibility Scoring",
-                  description:
-                    "Multi-factor analysis: consistency, engagement, growth stability, content quality, and authenticity scoring.",
-                  icon: TrendingUp,
-                  gradient: "from-blue-500 to-cyan-500",
-                },
-                {
-                  number: "2",
-                  title: "Trust Verification",
-                  description:
-                    "Transparent tagging system with verified badges, trust indicators, and detailed rating methodology.",
-                  icon: Shield,
-                  gradient: "from-purple-500 to-pink-500",
-                },
-                {
-                  number: "3",
-                  title: "Smart Discovery",
-                  description:
-                    "Advanced filters by category, platform, rating range, and tags to find the perfect creators.",
-                  icon: Zap,
-                  gradient: "from-orange-500 to-red-500",
-                },
-              ].map((item) => {
-                const Icon = item.icon
-                return (
-                  <div key={item.number} className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Card className="relative h-full p-8 border-border/50 bg-card/50 hover:border-primary/50 transition-all">
-                      <div
-                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4 text-white`}
-                      >
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-4xl font-bold text-primary/40">{item.number}</span>
-                        <h3 className="text-xl font-bold">{item.title}</h3>
-                      </div>
-                      <p className="text-muted-foreground">{item.description}</p>
-                    </Card>
-                  </div>
-                )
-              })}
+              <Card className="p-6 border-border/50 bg-card/50 text-center">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-4">
+                  <Eye className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">For Public Users</h3>
+                <p className="text-muted-foreground">
+                  Browse and discover creators freely. See credibility ratings, categories, and basic 
+                  profile information without creating an account.
+                </p>
+              </Card>
+
+              <Card className="p-6 border-border/50 bg-card/50 text-center">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
+                  <Target className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">For Brands</h3>
+                <p className="text-muted-foreground">
+                  Sign in to access advanced filters, save favorite creators, compare profiles, 
+                  and connect directly with verified influencers for collaborations.
+                </p>
+              </Card>
+
+              <Card className="p-6 border-border/50 bg-card/50 text-center">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-4">
+                  <Award className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">For Creators</h3>
+                <p className="text-muted-foreground">
+                  Sign in to view your rating, track your credibility score, find collaboration 
+                  opportunities with similar creators, and connect with brands.
+                </p>
+              </Card>
             </div>
           </div>
         </section>
 
-        {/* User Roles / Features */}
+        {/* How Our Rating Works */}
         <section className="border-b border-border/50 bg-gradient-to-b from-background to-card/30 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-4 mb-16">
-              <h2 className="text-4xl font-bold">Built for Your Role</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Powerful tools designed for every user</p>
+              <Badge className="bg-secondary/10 text-secondary border-secondary/20">Our Methodology</Badge>
+              <h2 className="text-4xl font-bold">How We Calculate Credibility Scores</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Our proprietary algorithm analyzes 50+ data points to generate accurate, unbiased ratings
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
-                  title: "Public Users",
-                  icon: Users,
-                  gradient: "from-blue-500 to-cyan-500",
-                  features: ["Browse creators", "View ratings", "Explore profiles", "Filter by category"],
-                },
-                {
-                  title: "Brands",
-                  icon: Zap,
-                  gradient: "from-purple-500 to-pink-500",
-                  features: ["Advanced filters", "Save creators", "Compare profiles", "Direct messaging"],
-                },
-                {
-                  title: "Creators",
-                  icon: TrendingUp,
-                  gradient: "from-orange-500 to-red-500",
-                  features: ["View your rating", "Track analytics", "Edit profile", "Connect with brands"],
-                },
-                {
-                  title: "Admins",
+                  title: "Authenticity Analysis",
                   icon: Shield,
                   gradient: "from-green-500 to-emerald-500",
-                  features: ["Manage platform", "Control ratings", "View analytics", "Moderate content"],
+                  score: "25%",
+                  description: "Fake follower detection, bot engagement analysis, and audience authenticity verification.",
                 },
-              ].map((role) => {
-                const Icon = role.icon
+                {
+                  title: "Engagement Quality",
+                  icon: Users,
+                  gradient: "from-blue-500 to-cyan-500",
+                  score: "25%",
+                  description: "Real engagement rate, comment quality analysis, and audience interaction patterns.",
+                },
+                {
+                  title: "Growth Stability",
+                  icon: TrendingUp,
+                  gradient: "from-purple-500 to-pink-500",
+                  score: "25%",
+                  description: "Organic growth patterns, consistency over time, and sustainable audience building.",
+                },
+                {
+                  title: "Content Consistency",
+                  icon: BarChart3,
+                  gradient: "from-orange-500 to-red-500",
+                  score: "25%",
+                  description: "Posting frequency, content quality, niche expertise, and brand alignment.",
+                },
+              ].map((item) => {
+                const Icon = item.icon
                 return (
                   <Card
-                    key={role.title}
-                    className="p-6 border-border/50 bg-gradient-to-br from-card to-card/50 hover:border-primary/50 transition-all group"
+                    key={item.title}
+                    className="p-6 border-border/50 bg-card/50 hover:border-primary/50 transition-all group"
                   >
                     <div
-                      className={`w-10 h-10 rounded-lg bg-gradient-to-br ${role.gradient} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}
                     >
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="font-semibold text-lg mb-4">{role.title}</h3>
-                    <ul className="space-y-2">
-                      {role.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-lg">{item.title}</h3>
+                      <Badge variant="outline" className="text-xs">{item.score}</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
                   </Card>
                 )
               })}
@@ -195,64 +235,33 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Premium Features */}
+        {/* Trust Badges Explained */}
         <section className="border-b border-border/50 bg-background py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-4 mb-16">
-              <h2 className="text-4xl font-bold">Premium Features</h2>
+              <Badge className="bg-accent/10 text-accent border-accent/20">Trust Indicators</Badge>
+              <h2 className="text-4xl font-bold">Understanding Trust Badges</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Unlock advanced tools for brands and creators
+                Each creator profile displays trust badges that indicate specific verified achievements
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6 bg-card/30 border border-border/50 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold">For Brands</h3>
-                <ul className="space-y-3">
-                  {[
-                    "Advanced demographic filtering",
-                    "Side-by-side creator comparisons",
-                    "Direct messaging to creators",
-                    "Partnership tracking tools",
-                    "Monthly analytics reports",
-                    "Priority support",
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/pricing">
-                  <Button className="w-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                    View Brand Plans <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="space-y-6 bg-card/30 border border-border/50 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold">For Creators</h3>
-                <ul className="space-y-3">
-                  {[
-                    "Premium profile badge",
-                    "Featured in brand searches",
-                    "Advanced analytics dashboard",
-                    "Growth tracking & insights",
-                    "Direct brand messaging",
-                    "Partnership opportunities",
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/pricing/creators">
-                  <Button className="w-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                    View Creator Plans <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {[
+                { label: "Verified", color: "bg-blue-500" },
+                { label: "Rising Star", color: "bg-yellow-500" },
+                { label: "Consistent Poster", color: "bg-green-500" },
+                { label: "High Engagement", color: "bg-purple-500" },
+                { label: "Brand Safe", color: "bg-cyan-500" },
+                { label: "Niche Expert", color: "bg-orange-500" },
+              ].map((badge) => (
+                <Card key={badge.label} className="p-4 text-center border-border/50 bg-card/50">
+                  <div className={`w-10 h-10 ${badge.color} rounded-full mx-auto mb-3 flex items-center justify-center`}>
+                    <CheckCircle2 className="w-5 h-5 text-white" />
+                  </div>
+                  <p className="text-sm font-medium">{badge.label}</p>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
@@ -262,26 +271,26 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
             <div className="space-y-4">
               <h2 className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Ready to join?
+                Start Exploring Today
               </h2>
               <p className="text-xl text-muted-foreground">
-                Discover trusted creators or grow your influence with data-driven insights.
+                Browse creators publicly or sign in to access advanced features.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link href="/explore">
-                <Button size="lg" className="gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                  Browse Creators <ArrowRight className="w-4 h-4" />
+                <Button size="lg" className="gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90 w-full sm:w-auto">
+                  Browse Creators <Globe className="w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/auth">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2 border-primary/30 hover:border-primary bg-transparent"
+                  className="gap-2 border-primary/30 hover:border-primary bg-transparent w-full sm:w-auto"
                 >
-                  Create Account <ArrowRight className="w-4 h-4" />
+                  Sign In for More <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
             </div>

@@ -1,6 +1,5 @@
 "use client"
 
-import { BrandSidebar } from "@/components/brand-sidebar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -13,12 +12,8 @@ export default function BrandDashboardPage() {
   const suggestedInfluencers = mockInfluencers.slice(2, 5)
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <BrandSidebar />
-
-      <div className="flex flex-1">
-        <main className="flex-1">
-          <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
             {/* Welcome Section */}
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
@@ -144,8 +139,6 @@ export default function BrandDashboardPage() {
               </div>
             </div>
           </div>
-        </main>
-      </div>
     </div>
   )
 }

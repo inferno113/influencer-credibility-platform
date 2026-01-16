@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, User, Users, BarChart3, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, User, Users, BarChart3, Settings, LogOut, Crown, Sparkles } from "lucide-react"
 
 export function InfluencerSidebar() {
   const pathname = usePathname()
@@ -13,7 +13,7 @@ export function InfluencerSidebar() {
   const links = [
     { href: "/dashboard/influencer", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/influencer/profile", label: "My Profile", icon: User },
-    { href: "/dashboard/influencer/network", label: "Network", icon: Users },
+    { href: "/dashboard/influencer/collaborate", label: "Collaborate", icon: Users },
     { href: "/dashboard/influencer/insights", label: "Insights", icon: BarChart3 },
     { href: "/dashboard/influencer/settings", label: "Settings", icon: Settings },
   ]
@@ -43,6 +43,22 @@ export function InfluencerSidebar() {
           )
         })}
       </nav>
+
+      {/* Upgrade Plan Section */}
+      <div className="px-4 py-4 border-t border-border">
+        <Link href="/pricing/creators">
+          <div className="p-4 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 transition-colors cursor-pointer">
+            <div className="flex items-center gap-2 mb-2">
+              <Crown className="w-4 h-4 text-primary" />
+              <span className="font-semibold text-sm">Upgrade Plan</span>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">Get featured in brand searches & advanced analytics</p>
+            <Button size="sm" className="w-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+              <Sparkles className="w-3 h-3" /> View Plans
+            </Button>
+          </div>
+        </Link>
+      </div>
 
       <div className="p-4 border-t border-border">
         <Button

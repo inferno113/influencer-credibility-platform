@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { AdminSidebar } from "@/components/admin-sidebar"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 
 export default function RatingSystemPage() {
@@ -29,14 +27,8 @@ export default function RatingSystemPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
-      <div className="flex flex-1">
-        <AdminSidebar />
-
-        <main className="flex-1">
-          <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="p-6 lg:p-8">
+      <div className="max-w-4xl mx-auto">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2">Rating System Control</h1>
               <p className="text-muted-foreground">Adjust factors that influence credibility scores</p>
@@ -122,8 +114,6 @@ export default function RatingSystemPage() {
               </div>
             </Card>
           </div>
-        </main>
-      </div>
     </div>
   )
 }
