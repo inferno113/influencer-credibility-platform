@@ -1,4 +1,4 @@
-import type { UserRole } from "./types"
+export type UserRole = "public" | "brand" | "influencer" | "admin"
 
 export interface AuthUser {
   id: string
